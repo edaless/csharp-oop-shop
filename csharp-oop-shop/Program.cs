@@ -21,10 +21,12 @@ namespace csharp_oop_shop
             Console.WriteLine("Descrizione: " + prod1.Descrizione);
             Console.WriteLine("Prezzo: " + prod1.Prezzo + " euro");
             Console.WriteLine("Iva: " + prod1.Iva + "%");
-            Console.WriteLine("Prezzo con Iva: " + prod1.prezzoIva() + " euro");
+            Console.WriteLine("Prezzo con Iva: " + prod1.prezzoIva().ToString("F2") + " euro");
+            Console.WriteLine("Nome esteso: " + prod1.NomeEsteso());
 
 
             
+
 
 
 
@@ -33,7 +35,7 @@ namespace csharp_oop_shop
 
 
 
-        //Nel progetto csharp-oop-shop, 
+
         //creare la classe Prodotto che gestisce i prodotti dello shop.
         //Un prodotto è caratterizzato da:
         //- codice (numero intero)
@@ -44,11 +46,16 @@ namespace csharp_oop_shop
 
         private class Prodotto
         {
+            private int cifreCodice = 8;
             private int codice;
             public int Codice
             {
                 get
-                {
+                { 
+                    string codiceString = codice.ToString();
+                    string esito = "";
+
+                    
                     return codice;
                 }
             }
@@ -99,7 +106,6 @@ namespace csharp_oop_shop
 
             private int iva;
             public int Iva
-
             {
                 get
                 {
@@ -112,18 +118,26 @@ namespace csharp_oop_shop
             }
 
 
-            public double prezzoIva ()
+            public float prezzoIva()
             {
-                return 7 / 10;
-                //return (this.Iva / 100);
-                //return this.Prezzo * (1 + (this.Iva / 100));
+
+                return this.Prezzo * (1 + ((float)this.Iva / 100));
             }
+
+
+            public string NomeEsteso()
+            {
+                return Codice + " " + Nome;
+            }
+
+
+
 
             //costruttore
             public Prodotto(string nome, string descrizione, float prezzo, int iva)
             {
                 Random rnd = new Random();
-                this.codice = rnd.Next(99999);
+                this.codice = rnd.Next(1, 99999);
                 this.nome = nome;
                 this.descrizione = descrizione;
                 this.prezzo = prezzo;
@@ -147,8 +161,10 @@ namespace csharp_oop_shop
 //alla creazione di un nuovo prodotto il codice sia valorizzato con un numero random
 //Il codice prodotto sia accessibile solo in lettura
 //Gli altri attributi siano accessibili sia in lettura che in scrittura
-//Il prodotto esponga sia un metodo per avere il prezzo base che uno per avere il prezzo comprensivo di iva
-//Il prodotto esponga un metodo per avere il nome esteso, ottenuto concatenando codice + nome
+//Il prodotto esponga sia un metodo per avere il prezzo base
+//che uno per avere il prezzo comprensivo di iva
+//Il prodotto esponga un metodo per avere il nome esteso,
+//ottenuto concatenando codice + nome
 //Testate poi i vostri oggetti Prodotto, istanziandoli e provando ad interagirci per testare tutti i metodi che avete previsto.
 //BONUS:
 //- create un metodo che restituisca il codice con un pad left di 0 per arrivare a 8 caratteri 
